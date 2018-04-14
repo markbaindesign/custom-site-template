@@ -67,7 +67,7 @@ noroot wp plugin install contact-form-7 --activate
 
 # Update site blog description.
 echo "Updating blog description..."
-wp option update blogdescription "Just another Bain Design WordPress site"
+noroot wp option update blogdescription "Just another Bain Design WordPress site"
 
 cp -f "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf.tmpl" "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf"
 sed -i "s#{{DOMAINS_HERE}}#${DOMAINS}#" "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf"
