@@ -1,6 +1,6 @@
 # Bain Design VVV Custom site template
 
-## Version: 1.0.0
+## Version: 1.1.0
 
 ## Overview
 This template will allow you to create a WordPress dev environment using only `vvv-custom.yml`.

@@ -51,6 +51,18 @@ else
   noroot wp core update --version="${WP_VERSION}"
 fi
 
+# Delete default plugins
+echo "Deleting default plugins..."
+noroot wp plugin delete akismet hello
+
+# Delete default themes
+echo "Deleting default themes..."
+noroot wp plugin delete akismet hello
+
+# Install & activate recommended plugins
+echo "Installing recommended plugins..."
+noroot wp plugin install contact-form-7 --activate
+
 cp -f "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf.tmpl" "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf"
 sed -i "s#{{DOMAINS_HERE}}#${DOMAINS}#" "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf"
 
