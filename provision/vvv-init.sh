@@ -29,9 +29,6 @@ fi
 if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-config.php" ]]; then
   echo "Configuring WordPress Stable..."
   noroot wp core config --dbname="${DB_NAME}" --dbuser=wp --dbpass=wp --quiet --extra-php <<PHP
-ini_set('log_errors','On');
-ini_set('display_errors','Off');
-ini_set('error_reporting', E_ALL );
 define('WP_DEBUG', true);
 define('WP_DEBUG_LOG', true);
 define('WP_DEBUG_DISPLAY', false);
@@ -70,7 +67,7 @@ noroot wp plugin install contact-form-7 --activate
 
 # Update site blog description.
 echo "Updating blog description..."
-$ wp option update blogdescription "Just another Bain Design WordPress site"
+wp option update blogdescription "Just another Bain Design WordPress site"
 
 cp -f "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf.tmpl" "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf"
 sed -i "s#{{DOMAINS_HERE}}#${DOMAINS}#" "${VVV_PATH_TO_SITE}/provision/vvv-nginx.conf"
