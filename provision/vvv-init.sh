@@ -16,9 +16,13 @@ mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO wp@loc
 echo -e "\n DB operations done.\n\n"
 
 # Nginx Logs and other dirs
-mkdir -p ${VVV_PATH_TO_SITE}/log ${VVV_PATH_TO_SITE}/import ${VVV_PATH_TO_SITE}/export ${VVV_PATH_TO_SITE}/release
+echo -e "\nCreating directories..."
+mkdir -p ${VVV_PATH_TO_SITE}/log
 touch ${VVV_PATH_TO_SITE}/log/error.log
 touch ${VVV_PATH_TO_SITE}/log/access.log
+
+mkdir -p "${VVV_PATH_TO_SITE}/import"
+mkdir -p  ${VVV_PATH_TO_SITE}/export ${VVV_PATH_TO_SITE}/release
 
 # Install and configure the latest stable version of WordPress
 if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-load.php" ]]; then
