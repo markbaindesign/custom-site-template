@@ -18,21 +18,23 @@ echo -e "\n DB operations done.\n\n"
 
 # Nginx Logs and other dirs
 echo -e "\nCreating directories..."
-mkdir -p "${VVV_PATH_TO_SITE}/log"
-touch "${VVV_PATH_TO_SITE}/log/error.log"
-touch "${VVV_PATH_TO_SITE}/log/access.log"
-
-mkdir -p "${VVV_PATH_TO_SITE}/import"
-mkdir -p  "${VVV_PATH_TO_SITE}/export" "${VVV_PATH_TO_SITE}/release"
+mkdir -p ${VVV_PATH_TO_SITE}/import
+mkdir -p ${VVV_PATH_TO_SITE}/export
+mkdir -p ${VVV_PATH_TO_SITE}/release
+mkdir -p ${VVV_PATH_TO_SITE}/log
+touch ${VVV_PATH_TO_SITE}/log/error.log
+touch ${VVV_PATH_TO_SITE}/log/access.log
 
 # Install and configure the latest stable version of WordPress
 if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-load.php" ]]; then
-    echo "Downloading WordPress..."
+  echo "Downloading WordPress..."
+  cd ${VVV_PATH_TO_SITE}/htdocs
 	noroot wp core download --version="${WP_VERSION}"
 fi
 
 if [[ ! -f "${VVV_PATH_TO_SITE}/htdocs/wp-config.php" ]]; then
   echo "Configuring WordPress Stable..."
+  cd ${VVV_PATH_TO_SITE}/htdocs
   noroot wp core config --dbname="${DB_NAME}" --dbuser=wp --dbpass=wp --quiet --extra-php <<PHP
 define('WP_DEBUG', true);
 define('WP_DEBUG_LOG', true);
@@ -42,7 +44,7 @@ fi
 
 if ! $(noroot wp core is-installed); then
   echo "Installing WordPress Stable..."
-
+  cd ${VVV_PATH_TO_SITE}/htdocs
   if [ "${WP_TYPE}" = "subdomain" ]; then
     INSTALL_COMMAND="multisite-install --subdomains"
   elif [ "${WP_TYPE}" = "subdirectory" ]; then
